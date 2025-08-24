@@ -1,14 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://dj161bykfg0sf"]
+[gd_scene load_steps=8 format=3 uid="uid://dj161bykfg0sf"]
 
 [ext_resource type="Texture2D" uid="uid://ch0yrtooodvs1" path="res://third-party/PrototypeKenneyMaterials-main/black/texture_01.png" id="1_g7g4h"]
+[ext_resource type="Script" uid="uid://s7e4eoe0rsuk" path="res://scripts/player/player.gd" id="2_j8ivh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j8ivh"]
 albedo_texture = ExtResource("1_g7g4h")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_a5oyu"]
 material = SubResource("StandardMaterial3D_j8ivh")
+size = Vector2(100, 100)
 
-[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_g7g4h"]
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_j8ivh"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_g7g4h"]
 
@@ -17,19 +19,19 @@ material = SubResource("StandardMaterial3D_j8ivh")
 [node name="TestScene" type="Node3D"]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 mesh = SubResource("PlaneMesh_a5oyu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("SeparationRayShape3D_g7g4h")
+shape = SubResource("WorldBoundaryShape3D_j8ivh")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.84873, 0)
 
 [node name="Player" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29091, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.29091, 0)
+script = ExtResource("2_j8ivh")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
 mesh = SubResource("CapsuleMesh_g7g4h")
@@ -39,3 +41,6 @@ shape = SubResource("CapsuleShape3D_g7g4h")
 
 [node name="Camera3D" type="Camera3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.386808, 0.92216, 0, -0.92216, 0.386808, 0, 6.11381, 0)
