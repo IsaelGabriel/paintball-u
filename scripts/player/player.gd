@@ -49,6 +49,8 @@ func _move(delta: float) -> void:
 	else:
 		if Input.is_action_just_pressed("p_slide"):
 			velocity.y = -STOMP_FORCE
+			velocity.x = 0
+			velocity.z = 0
 		
 	if sliding:
 		var desired_velocity: Vector2 = slide_direction * SLIDE_SPEED

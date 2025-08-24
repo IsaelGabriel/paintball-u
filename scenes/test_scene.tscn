@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://dj161bykfg0sf"]
+[gd_scene load_steps=12 format=3 uid="uid://dj161bykfg0sf"]
 
 [ext_resource type="Texture2D" uid="uid://ch0yrtooodvs1" path="res://third-party/PrototypeKenneyMaterials-main/black/texture_01.png" id="1_g7g4h"]
 [ext_resource type="Script" uid="uid://s7e4eoe0rsuk" path="res://scripts/player/player.gd" id="2_j8ivh"]
+[ext_resource type="Script" uid="uid://jvw2smkur3mr" path="res://scripts/player/camera_controller.gd" id="3_nd71p"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j8ivh"]
 
@@ -50,8 +51,11 @@ mesh = SubResource("CapsuleMesh_g7g4h")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 shape = SubResource("CapsuleShape3D_g7g4h")
 
-[node name="Camera3D" type="Camera3D" parent="Player"]
+[node name="CameraController" type="Node3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+script = ExtResource("3_nd71p")
+
+[node name="Camera3D" type="Camera3D" parent="Player/CameraController"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.386808, 0.92216, 0, -0.92216, 0.386808, 0, 6.11381, 0)
