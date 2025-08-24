@@ -2,9 +2,10 @@ extends CharacterBody3D
 
 class_name Player
 
-const GRAVITY = 9.8
+const GRAVITY = 15
 const SPEED = 10
 const JUMP_FORCE = 15
+const STOMP_FORCE = 40
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -22,3 +23,6 @@ func _move(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("p_jump") and is_on_floor():
 		velocity.y = JUMP_FORCE
+
+	if Input.is_action_just_pressed("p_slide") and not is_on_floor():
+		velocity.y = -STOMP_FORCE
