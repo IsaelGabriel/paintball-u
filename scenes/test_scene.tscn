@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://dj161bykfg0sf"]
+
+[ext_resource type="Texture2D" uid="uid://ch0yrtooodvs1" path="res://third-party/PrototypeKenneyMaterials-main/black/texture_01.png" id="1_g7g4h"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j8ivh"]
+albedo_texture = ExtResource("1_g7g4h")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_a5oyu"]
+material = SubResource("StandardMaterial3D_j8ivh")
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_g7g4h"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_g7g4h"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g7g4h"]
+
+[node name="TestScene" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("PlaneMesh_a5oyu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("SeparationRayShape3D_g7g4h")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.84873, 0)
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29091, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+mesh = SubResource("CapsuleMesh_g7g4h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CapsuleShape3D_g7g4h")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
