@@ -1,7 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://dj161bykfg0sf"]
+[gd_scene load_steps=11 format=3 uid="uid://dj161bykfg0sf"]
 
 [ext_resource type="Texture2D" uid="uid://ch0yrtooodvs1" path="res://third-party/PrototypeKenneyMaterials-main/black/texture_01.png" id="1_g7g4h"]
 [ext_resource type="Script" uid="uid://s7e4eoe0rsuk" path="res://scripts/player/player.gd" id="2_j8ivh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j8ivh"]
+
+[sub_resource type="Sky" id="Sky_nd71p"]
+sky_material = SubResource("ProceduralSkyMaterial_j8ivh")
+
+[sub_resource type="Environment" id="Environment_7ddre"]
+background_mode = 2
+sky = SubResource("Sky_nd71p")
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j8ivh"]
 albedo_texture = ExtResource("1_g7g4h")
@@ -18,6 +29,9 @@ size = Vector2(100, 100)
 
 [node name="TestScene" type="Node3D"]
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7ddre")
+
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
@@ -25,9 +39,6 @@ mesh = SubResource("PlaneMesh_a5oyu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("WorldBoundaryShape3D_j8ivh")
-
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.84873, 0)
 
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.29091, 0)
