@@ -8,6 +8,7 @@ var body: Player
 
 func _ready() -> void:
 	body = get_parent()
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _process(delta: float) -> void:
 	var camera_input = -Input.get_last_mouse_velocity()
