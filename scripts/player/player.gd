@@ -29,7 +29,7 @@ func _move(delta: float) -> void:
 		sliding = false
 	
 	
-	var movement_input = Input.get_vector("p_left", "p_right", "p_forward", "p_back").normalized()
+	var movement_input = Input.get_vector("p_left", "p_right", "p_forward", "p_back").normalized().rotated(-rotation.y)
 	
 	if is_on_floor():
 		
