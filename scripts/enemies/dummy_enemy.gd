@@ -4,7 +4,8 @@ class_name DummyEnemy
 
 @export var can_die: bool = false
 @export_range(0.0, 10.0) var regen_time: float = 3.0
-@export var regen_ammount: float
+@export var regen_ammount: float = 2
+@export var print_on_damage: bool = false
 
 var regen_count: float = 0.0
 
@@ -21,3 +22,5 @@ func _process(delta: float) -> void:
 
 func _on_damaged(source: Node, value: int) -> void:
 	regen_count = regen_time
+	if print_on_damage:
+		print(name + " damaged by " + source.name + ". Lost: " + str(value) + " HP.")

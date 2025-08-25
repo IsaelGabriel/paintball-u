@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dj161bykfg0sf"]
+[gd_scene load_steps=19 format=3 uid="uid://dj161bykfg0sf"]
 
 [ext_resource type="Texture2D" uid="uid://ch0yrtooodvs1" path="res://third-party/PrototypeKenneyMaterials-main/black/texture_01.png" id="1_g7g4h"]
 [ext_resource type="Script" uid="uid://s7e4eoe0rsuk" path="res://scripts/player/player.gd" id="2_j8ivh"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dsstmnuflv7gr" path="res://scripts/damageable.gd" id="3_qjeyg"]
 [ext_resource type="Texture2D" uid="uid://obb82dx1xgq1" path="res://third-party/PrototypeKenneyMaterials-main/red/texture_01.png" id="4_7ddre"]
 [ext_resource type="Script" uid="uid://6cydsglvu3mt" path="res://scripts/enemies/dummy_enemy.gd" id="5_3qnke"]
+[ext_resource type="Script" uid="uid://bogoov1ml44en" path="res://scripts/player/player_weapon.gd" id="5_wtsjf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j8ivh"]
 
@@ -52,7 +53,7 @@ mesh = SubResource("PlaneMesh_a5oyu")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("WorldBoundaryShape3D_j8ivh")
 
-[node name="Player" type="CharacterBody3D" parent="."]
+[node name="Player" type="CharacterBody3D" parent="." groups=["Damageable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.29091, 0)
 script = ExtResource("2_j8ivh")
 
@@ -71,12 +72,16 @@ script = ExtResource("3_nd71p")
 
 [node name="Camera3D" type="Camera3D" parent="Player/CameraController"]
 
+[node name="PlayerWeapon" type="Node3D" parent="Player/CameraController"]
+script = ExtResource("5_wtsjf")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.386808, 0.92216, 0, -0.92216, 0.386808, 0, 6.11381, 0)
 
-[node name="DummyEnemy" type="CharacterBody3D" parent="."]
+[node name="DummyEnemy" type="CharacterBody3D" parent="." groups=["Damageable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -13.954)
 script = ExtResource("5_3qnke")
+print_on_damage = true
 
 [node name="Damageable" type="Node" parent="DummyEnemy"]
 script = ExtResource("3_qjeyg")
