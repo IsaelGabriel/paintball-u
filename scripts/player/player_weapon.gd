@@ -8,6 +8,7 @@ var damage = 2
 var cooldown = .9
 var cooldown_count = 0.0
 
+@export var ray_bullet: PackedScene
 
 
 func _process(delta: float) -> void:
@@ -32,7 +33,14 @@ func _physics_process(delta: float) -> void:
 		
 		var hit: Dictionary = space_state.intersect_ray(query)
 		if not hit.is_empty():
+			end = hit["position"]
 			if hit["collider"].is_in_group("Damageable"):
 				for child in hit["collider"].get_children():
 					if child is Damageable:
 						child.deal_damage(get_parent().get_parent(), damage)
+		
+		var bullet = ray_bullet.instantiate()
+		bullet.position = global_position
+		bullet.end = end
+		
+		get_tree().current_scene.add_child(bullet)

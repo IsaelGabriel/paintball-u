@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bt2ua71rimyxk"]
+
+[ext_resource type="Script" uid="uid://bdfo60whcw4rr" path="res://scripts/ray_bullet_trail.gd" id="1_qi43n"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_th2g3"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 8.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_qi43n"]
+material = SubResource("StandardMaterial3D_th2g3")
+
+[node name="RayBulletTrail" type="Node3D"]
+script = ExtResource("1_qi43n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_qi43n")
