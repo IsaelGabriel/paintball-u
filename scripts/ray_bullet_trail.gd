@@ -3,17 +3,14 @@ extends Node3D
 class_name RayBulletTrail
 
 var end: Vector3
-var speed: float = 100
+var speed: float = 75
 var start: Vector3
 var direction: Vector3
-
-func _ready() -> void:
-	start = position
-	direction = (end - start).normalized()
+var t: float
 
 func _process(delta: float) -> void:
-	position += direction * delta * speed
+	t += delta/(end - start).length() * speed
+	position = start.lerp(end, t)
 	
-	if (position - end).normalized() == -direction:
-		position = end
+	if t >= 1:
 		queue_free()

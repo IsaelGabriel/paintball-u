@@ -41,6 +41,8 @@ func _physics_process(delta: float) -> void:
 		
 		var bullet = ray_bullet.instantiate()
 		bullet.position = global_position
+		bullet.start = global_position
+		bullet.direction = (end - global_position).normalized()
 		bullet.end = end
-		
 		get_tree().current_scene.add_child(bullet)
+		

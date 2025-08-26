@@ -74,6 +74,7 @@ script = ExtResource("3_nd71p")
 [node name="Camera3D" type="Camera3D" parent="Player/CameraController"]
 
 [node name="PlayerWeapon" type="Node3D" parent="Player/CameraController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 script = ExtResource("5_wtsjf")
 ray_bullet = ExtResource("6_rnaij")
 
