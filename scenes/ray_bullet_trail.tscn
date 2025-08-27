@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bt2ua71rimyxk"]
+[gd_scene load_steps=9 format=3 uid="uid://bt2ua71rimyxk"]
 
 [ext_resource type="Script" uid="uid://bdfo60whcw4rr" path="res://scripts/ray_bullet_trail.gd" id="1_qi43n"]
 [ext_resource type="Texture2D" uid="uid://obb82dx1xgq1" path="res://third-party/PrototypeKenneyMaterials-main/red/texture_01.png" id="2_guvap"]
@@ -10,10 +10,37 @@ emission_energy_multiplier = 8.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_qi43n"]
 material = SubResource("StandardMaterial3D_th2g3")
+radius = 0.3
+height = 0.6
+
+[sub_resource type="Curve" id="Curve_guvap"]
+_data = [Vector2(0.566326, 0.984436), 0.0, 0.0, 0, 0, Vector2(1, 0.470817), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_yba2b"]
+curve = SubResource("Curve_guvap")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_guvap"]
+emission_shape = 1
+emission_sphere_radius = 0.4
+scale_min = 0.5
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_yba2b")
+
+[sub_resource type="SphereMesh" id="SphereMesh_guvap"]
+radius = 0.1
+height = 0.2
 
 [node name="RayBulletTrail" type="Node3D"]
 script = ExtResource("1_qi43n")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 mesh = SubResource("SphereMesh_qi43n")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 20
+lifetime = 0.5
+explosiveness = 0.05
+randomness = 0.26
+process_material = SubResource("ParticleProcessMaterial_guvap")
+draw_pass_1 = SubResource("SphereMesh_guvap")
