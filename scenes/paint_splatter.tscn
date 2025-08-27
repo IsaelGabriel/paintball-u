@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cedioc531x2t"]
+
+[ext_resource type="Texture2D" uid="uid://2me75ia6hvuo" path="res://icon.svg" id="1_73ian"]
+
+[node name="PaintSplatter" type="Node3D"]
+
+[node name="Decal" type="Decal" parent="."]
+size = Vector3(0.5, 1, 0.5)
+texture_albedo = ExtResource("1_73ian")
