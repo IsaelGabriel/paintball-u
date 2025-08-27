@@ -1,9 +1,45 @@
-[gd_scene load_steps=2 format=3 uid="uid://cedioc531x2t"]
+[gd_scene load_steps=7 format=3 uid="uid://cedioc531x2t"]
 
-[ext_resource type="Texture2D" uid="uid://2me75ia6hvuo" path="res://icon.svg" id="1_73ian"]
+[ext_resource type="Script" uid="uid://culkdprg3u2qi" path="res://scripts/paint_splatter.gd" id="1_fnxg3"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_73ian"]
+
+[sub_resource type="Curve" id="Curve_73ian"]
+_data = [Vector2(0, 0.984436), 0.0, 0.244047, 0, 0, Vector2(0.954082, 0.284047), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_fnxg3"]
+curve = SubResource("Curve_73ian")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qihrb"]
+emission_shape = 2
+emission_sphere_radius = 1.0
+spread = 180.0
+initial_velocity_min = 0.01
+initial_velocity_max = 8.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.4
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_fnxg3")
+
+[sub_resource type="SphereMesh" id="SphereMesh_fnxg3"]
+radius = 0.25
+height = 0.5
 
 [node name="PaintSplatter" type="Node3D"]
+script = ExtResource("1_fnxg3")
 
 [node name="Decal" type="Decal" parent="."]
 size = Vector3(0.5, 1, 0.5)
-texture_albedo = ExtResource("1_73ian")
+texture_albedo = SubResource("PlaceholderTexture2D_73ian")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 75
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_qihrb")
+draw_pass_1 = SubResource("SphereMesh_fnxg3")
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
