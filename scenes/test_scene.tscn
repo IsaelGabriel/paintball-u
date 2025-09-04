@@ -157,6 +157,7 @@ splatter = ExtResource("7_gthg3")
 
 [node name="PlayerMelee" parent="Player/CameraController" instance=ExtResource("8_ntc4i")]
 transform = Transform3D(0.920614, 0.390474, 8.53044e-09, -0.291797, 0.687964, -0.6645, -0.25947, 0.611748, 0.747288, -0.693678, -0.941014, -0.653559)
+visible = false
 script = ExtResource("9_u0xbq")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Player/CameraController/PlayerMelee"]
@@ -205,5 +206,6 @@ shape = SubResource("CapsuleShape3D_wtsjf")
 texture_albedo = ExtResource("11_6qxox")
 
 [connection signal="animation_finished" from="Player/CameraController/PlayerMelee/AnimationPlayer" to="Player/CameraController/PlayerMelee" method="_on_animation_player_animation_finished"]
+[connection signal="body_entered" from="Player/CameraController/PlayerMelee/Area3D" to="Player/CameraController/PlayerMelee" method="_on_area_3d_body_entered"]
 [connection signal="damaged" from="DummyEnemy/Damageable" to="DummyEnemy" method="_on_damaged"]
 [connection signal="killed" from="FollowerEnemy/Damageable" to="FollowerEnemy" method="_on_damageable_killed"]
