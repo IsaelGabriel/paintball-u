@@ -5,6 +5,8 @@ const SPEED = 8
 const STEER_SPEED = 5
 const TARGET_TRESHOLD = 2
 
+@export var target_distance: float = 2.0
+
 @onready var player: Player = get_tree().current_scene.get_node("Player")
 var target_position: Vector3
 
@@ -20,8 +22,12 @@ func _physics_process(delta: float) -> void:
 	target_position += (true_target - target_position).normalized() * delta * STEER_SPEED
 	look_at(target_position)
 	
-	if is_on_floor():
-		velocity = -transform.basis.z * SPEED
+	if is_on_floor(): 
+		velocity.y = 0
+		if position.distance_to(target_position) > target_distance:
+			velocity = velocity.lerp(-transform.basis.z * SPEED, delta)
+		else:
+			velocity = Vector3.ZERO
 	
 	move_and_slide()
 

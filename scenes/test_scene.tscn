@@ -156,7 +156,7 @@ ray_bullet = ExtResource("6_rnaij")
 splatter = ExtResource("7_gthg3")
 
 [node name="PlayerMelee" parent="Player/CameraController" instance=ExtResource("8_ntc4i")]
-transform = Transform3D(0.920614, 0.390475, 8.53044e-09, -0.291797, 0.687963, -0.6645, -0.259471, 0.611748, 0.747288, -0.693678, -0.941014, -0.653559)
+transform = Transform3D(0.920614, 0.390474, 8.53044e-09, -0.291797, 0.687963, -0.6645, -0.259471, 0.611748, 0.747288, -0.693678, -0.941014, -0.653559)
 visible = false
 script = ExtResource("9_u0xbq")
 
