@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dj161bykfg0sf"]
+[gd_scene load_steps=32 format=3 uid="uid://dj161bykfg0sf"]
 
 [ext_resource type="Texture2D" uid="uid://ch0yrtooodvs1" path="res://third-party/PrototypeKenneyMaterials-main/black/texture_01.png" id="1_g7g4h"]
 [ext_resource type="Script" uid="uid://s7e4eoe0rsuk" path="res://scripts/player/player.gd" id="2_j8ivh"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://vktuarvniel" path="res://models/toy-hammer/toy-hammer.gltf" id="8_ntc4i"]
 [ext_resource type="Texture2D" uid="uid://snd103vbfnd0" path="res://third-party/PrototypeKenneyMaterials-main/orange/texture_01.png" id="8_rnaij"]
 [ext_resource type="Script" uid="uid://c7pmkq3qfgh6u" path="res://scripts/enemies/follower_enemy.gd" id="9_s36qc"]
+[ext_resource type="Script" uid="uid://p60lwshor5e3" path="res://scripts/player/player_melee.gd" id="9_u0xbq"]
 [ext_resource type="Texture2D" uid="uid://2me75ia6hvuo" path="res://icon.svg" id="11_6qxox"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j8ivh"]
@@ -99,6 +100,9 @@ _data = {
 &"hammer-hit": SubResource("Animation_ntc4i")
 }
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_u0xbq"]
+size = Vector3(0.3, 0.3, 0.2)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qjeyg"]
 albedo_texture = ExtResource("4_7ddre")
 
@@ -151,13 +155,20 @@ script = ExtResource("5_wtsjf")
 ray_bullet = ExtResource("6_rnaij")
 splatter = ExtResource("7_gthg3")
 
-[node name="toy-hammer" parent="Player/CameraController" instance=ExtResource("8_ntc4i")]
+[node name="PlayerMelee" parent="Player/CameraController" instance=ExtResource("8_ntc4i")]
 transform = Transform3D(0.920614, 0.390474, 8.53044e-09, -0.291797, 0.687964, -0.6645, -0.25947, 0.611748, 0.747288, -0.693678, -0.941014, -0.653559)
+script = ExtResource("9_u0xbq")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/CameraController/toy-hammer"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/CameraController/PlayerMelee"]
 libraries = {
 &"": SubResource("AnimationLibrary_u0xbq")
 }
+
+[node name="Area3D" type="Area3D" parent="Player/CameraController/PlayerMelee"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/CameraController/PlayerMelee/Area3D"]
+transform = Transform3D(1, 2.38419e-07, 4.47035e-08, 1.49012e-08, 0.999999, -1.78814e-07, 1.49012e-08, 5.96046e-08, 1, -4.21329e-10, 1.487, -0.231633)
+shape = SubResource("BoxShape3D_u0xbq")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.386808, 0.92216, 0, -0.92216, 0.386808, 0, 6.11381, 0)
@@ -193,5 +204,6 @@ shape = SubResource("CapsuleShape3D_wtsjf")
 [node name="Decal" type="Decal" parent="."]
 texture_albedo = ExtResource("11_6qxox")
 
+[connection signal="animation_finished" from="Player/CameraController/PlayerMelee/AnimationPlayer" to="Player/CameraController/PlayerMelee" method="_on_animation_player_animation_finished"]
 [connection signal="damaged" from="DummyEnemy/Damageable" to="DummyEnemy" method="_on_damaged"]
 [connection signal="killed" from="FollowerEnemy/Damageable" to="FollowerEnemy" method="_on_damageable_killed"]
