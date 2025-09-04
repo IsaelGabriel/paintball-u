@@ -16,7 +16,7 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
-	if body.is_in_group("Damageable") and visible:
+	if body.is_in_group("Damageable") and visible and body != player:
 		for child in body.get_children():
 			if child is not Damageable: continue
 			child.deal_damage(player, damage)
