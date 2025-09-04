@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dj161bykfg0sf"]
+[gd_scene load_steps=30 format=3 uid="uid://dj161bykfg0sf"]
 
 [ext_resource type="Texture2D" uid="uid://ch0yrtooodvs1" path="res://third-party/PrototypeKenneyMaterials-main/black/texture_01.png" id="1_g7g4h"]
 [ext_resource type="Script" uid="uid://s7e4eoe0rsuk" path="res://scripts/player/player.gd" id="2_j8ivh"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://bogoov1ml44en" path="res://scripts/player/player_weapon.gd" id="5_wtsjf"]
 [ext_resource type="PackedScene" uid="uid://bt2ua71rimyxk" path="res://scenes/ray_bullet_trail.tscn" id="6_rnaij"]
 [ext_resource type="PackedScene" uid="uid://cedioc531x2t" path="res://scenes/paint_splatter.tscn" id="7_gthg3"]
+[ext_resource type="PackedScene" uid="uid://vktuarvniel" path="res://models/toy-hammer/toy-hammer.gltf" id="8_ntc4i"]
 [ext_resource type="Texture2D" uid="uid://snd103vbfnd0" path="res://third-party/PrototypeKenneyMaterials-main/orange/texture_01.png" id="8_rnaij"]
 [ext_resource type="Script" uid="uid://c7pmkq3qfgh6u" path="res://scripts/enemies/follower_enemy.gd" id="9_s36qc"]
 [ext_resource type="Texture2D" uid="uid://2me75ia6hvuo" path="res://icon.svg" id="11_6qxox"]
@@ -36,6 +37,67 @@ size = Vector2(100, 100)
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_g7g4h"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g7g4h"]
+
+[sub_resource type="Animation" id="Animation_ntc4i"]
+resource_name = "hammer-hit"
+length = 0.75
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.35, 0.75),
+"transitions": PackedFloat32Array(4.28709, 1.93187, 0.5),
+"update": 0,
+"values": [Vector3(0.726825, 1.14152e-08, -0.401147), Vector3(-0.455156, 6.88253e-09, -0.401277), Vector3(-2.2794, 0, -0.401426)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.35, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.693678, -0.941014, -0.653559), Vector3(-0.575236, -1.07724, -0.579866), Vector3(-0.693678, -1.15781, -0.653559)]
+}
+
+[sub_resource type="Animation" id="Animation_u0xbq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.726825, 1.14152e-08, -0.401147)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.693678, -0.941014, -0.653559)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u0xbq"]
+_data = {
+&"RESET": SubResource("Animation_u0xbq"),
+&"hammer-hit": SubResource("Animation_ntc4i")
+}
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qjeyg"]
 albedo_texture = ExtResource("4_7ddre")
@@ -88,6 +150,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 script = ExtResource("5_wtsjf")
 ray_bullet = ExtResource("6_rnaij")
 splatter = ExtResource("7_gthg3")
+
+[node name="toy-hammer" parent="Player/CameraController" instance=ExtResource("8_ntc4i")]
+transform = Transform3D(0.920614, 0.390474, 8.53044e-09, -0.291797, 0.687964, -0.6645, -0.25947, 0.611748, 0.747288, -0.693678, -0.941014, -0.653559)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/CameraController/toy-hammer"]
+libraries = {
+&"": SubResource("AnimationLibrary_u0xbq")
+}
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.386808, 0.92216, 0, -0.92216, 0.386808, 0, 6.11381, 0)
